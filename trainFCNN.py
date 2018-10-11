@@ -67,7 +67,7 @@ def getBatch(imageDir, labelDir, data_list, startIndex, endIndex):
 #model.load_weights('saved_weights/myResnet/Adadelta+SGD(freezed+decay)/Epoch_2-TestAcc_0.7232185821533204.h5')
 
 model = ensamble_model
-model.load_weights('saved_weights/ensamble_segnet_fcn32/Adadelta/Epoch_6-TestAcc_0.8564886474609374.h5')
+model.load_weights('saved_weights/ensamble_segnet_fcn32/Epoch_6-TestAcc_0.8564886474609374.h5')
 
 #model = fcn16
 #model.load_weights('saved_weights/FCN16/Adadelta/Epoch_3-TestAcc_0.8342522125244141.h5')
