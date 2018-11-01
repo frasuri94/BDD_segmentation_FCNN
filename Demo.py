@@ -5,6 +5,8 @@ from keras.preprocessing.image import img_to_array, load_img, array_to_img
 import os
 from SegNet import segnet
 from FCN32 import fcn32
+from FCN16 import fcn16
+from Ensamble import ensamble_model
 
 classes = np.array([
     [107., 142., 35.],      #vegetation
@@ -40,14 +42,23 @@ def pred_array_to_seg_array(pred_array):
     seg_array = np.reshape(seg_array, (256, 256, 3))
     return seg_array
 
-model = fcn32
-fcn32.load_weights('saved_weights/FCN32/Epoch_7-TestAcc_0.852270248413086.h5')
+#model = fcn32
+#model.load_weights('saved_weights/FCN32/Epoch_7-TestAcc_0.852270248413086.h5')
+
+#model = fcn16
+#model.load_weights('saved_weights/FCN16/SGD/Epoch_5-TestAcc_0.8446747589111329.h5')
+
+#model = segnet
+#model.load_weights('saved_weights/SegNet/SGD(decay)/Epoch_3-TestAcc_0.8185689849853516.h5')
+
+model = ensamble_model
+model.load_weights('saved_weights/ensamble_segnet_fcn32/Epoch_6-TestAcc_0.8564886474609374.h5')
 
 img_path = 'image.jpg'
 img = image.load_img(img_path, target_size=(256, 256))
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
-preds = model.predict(x)
+preds = model.predict([x, x])
 pred_array = preds[0]
 seg_array = pred_array_to_seg_array(pred_array)
 seg_image = array_to_img(seg_array)
